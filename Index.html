@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>InfinityX Party</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#100d19;color:#fff;font-family:Arial,sans-serif;padding-bottom:78px}.header{padding:22px 18px;background:#191326;display:flex;align-items:center;justify-content:space-between}.logo{font-size:25px;font-weight:bold;color:#b69cff}.sub{color:#aaa;font-size:13px;margin-top:5px}.section{padding:18px}.countries{display:flex;gap:9px;flex-wrap:wrap}.country{border:1px solid #493765;border-radius:22px;padding:10px 13px;color:white;background:#211a30}.country.active{background:#7445dc;border-color:#a88bff}.hero{margin:18px;padding:20px;border-radius:18px;background:linear-gradient(135deg,#462080,#17132c);border:1px solid #6546a0}.hero h2{margin:0 0 8px}.muted{color:#c6bdd7;font-size:14px}.room{margin:12px 0;padding:15px;background:#201a2b;border:1px solid #352a49;border-radius:14px;display:flex;justify-content:space-between;align-items:center;gap:10px}.room h3{font-size:16px;margin:0 0 7px}.room p{font-size:12px;color:#b9afc9;margin:0}.join,.create{background:#8756f1;color:white;border:0;padding:10px 14px;border-radius:20px;font-weight:bold}.create{width:100%;padding:14px;font-size:15px}.nav{position:fixed;bottom:0;left:0;right:0;background:#191326;border-top:1px solid #392b4e;display:flex;justify-content:space-around;padding:12px 2px}.nav button{background:none;color:#bdb2d1;border:0;font-size:12px;padding:4px}.nav button.active{color:#c2a6ff}.notice{color:#bba9d9;font-size:12px;text-align:center;padding:14px}
+</style>
+</head>
+<body>
+<header class="header"><div><div class="logo">∞ InfinityX</div><div class="sub">Infinite Vibes · Unlimited Friends</div></div><span>🔔</span></header>
+<section class="hero"><h2>Welcome to InfinityX ✨</h2><div class="muted">Meet friends. Join the vibe.</div></section>
+<section class="section"><h3>🌏 Choose your country</h3><div class="countries"><button class="country active" data-country="All">🌐 All</button><button class="country" data-country="Bangladesh">🇧🇩 Bangladesh</button><button class="country" data-country="India">🇮🇳 India</button><button class="country" data-country="Pakistan">🇵🇰 Pakistan</button></div></section>
+<section class="section"><h3>🎙️ Popular Rooms</h3><div id="rooms"></div><button class="create" id="create">＋ Create a Demo Room</button><div class="notice">Demo only — live voice chat is not connected yet.</div></section>
+<nav class="nav"><button class="active" data-tab="Home">🏠<br>Home</button><button data-tab="Rooms">🎙️<br>Rooms</button><button data-tab="Messages">💬<br>Messages</button><button data-tab="Profile">👤<br>Profile</button></nav>
+<script>
+const data=[{name:'Bangla Adda 🇧🇩',country:'Bangladesh',members:28},{name:'India Friends 🇮🇳',country:'India',members:16},{name:'Pakistan Lounge 🇵🇰',country:'Pakistan',members:21},{name:'Night Vibes 🌙',country:'Bangladesh',members:12}];let selected='All';function render(){const list=data.filter(r=>selected==='All'||r.country===selected);document.getElementById('rooms').innerHTML=list.map(r=>`<div class="room"><div><h3>${r.name}</h3><p>${r.country} · 👥 ${r.members} members</p></div><button class="join" onclick="joinRoom('${r.name.replace(/'/g,'')}')">Join</button></div>`).join('')||'<p>No rooms yet.</p>';document.querySelectorAll('.country').forEach(b=>b.classList.toggle('active',b.dataset.country===selected))}document.querySelectorAll('.country').forEach(b=>b.onclick=()=>{selected=b.dataset.country;render()});function joinRoom(name){alert('You selected '+name+'. Live voice is not connected yet.')}document.getElementById('create').onclick=()=>{const name=prompt('Enter your demo room name:');if(name&&name.trim()){data.unshift({name:name.trim(),country:selected==='All'?'Bangladesh':selected,members:1});render();alert('Demo room created!')}};document.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-tab]').forEach(x=>x.classList.toggle('active',x===b));if(b.dataset.tab!=='Home'&&b.dataset.tab!=='Rooms')alert(b.dataset.tab+' screen will be added in the next step.');else document.querySelector('.hero h2').textContent=b.dataset.tab==='Rooms'?'🎙️ Voice Rooms':'Welcome to InfinityX ✨'});render();
+</script>
+</body>
+</html>
